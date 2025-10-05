@@ -1,0 +1,1 @@
+{"name":"ai-log-analyzer","version":"1.0.0","type":"module","scripts":{"analyze":"node analyze.js","chat":"node chat.js"},"dependencies":{"@modelcontextprotocol/server-filesystem":"^2025.8.21","dotenv":"^17.2.3","node-fetch":"^3.3.2","readline-sync":"^1.4.10"}}

@@ -1,0 +1,10 @@
+{
+  "filesystem": {
+    "url": "${FILESYSTEM_MCP_URL}",
+    "tools": ["read_text_file", "write_file", "list_directory", "directory_tree"]
+  },
+  "fetch": {
+    "url": "${FETCH_MCP_URL}",
+    "tools": ["fetch"]
+  }
+}
