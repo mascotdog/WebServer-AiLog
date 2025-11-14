@@ -45,17 +45,17 @@ while (true) {
   conversation.push({ role: 'user', content: q });
 
   const modelResponse = await callModel(conversation, functions);
-  const choice = extractMessageChoice(modelResponse);
+  const msg = extractMessageChoice(modelResponse);
 
-  if (choice?.message?.function_call) {
-    const { name, arguments: args } = choice.message.function_call;
+  if (msg?.function_call) {
+    const { name, arguments: args } = msg.function_call;
     console.log(`🛠 工具调用请求: ${name}`, args);
 
     let toolResult = '';
 
     if (name === 'read_text_file') {
       const parsed = JSON.parse(args || '{}');
-      toolResult = await readTextFile(parsed.path, parsed.head, parsed.tail);
+      toolResult = await readTextFile(parsed.path, { head: parsed.head, tail: parsed.tail });
     } else if (name === 'fetch') {
       const parsed = JSON.parse(args || '{}');
       toolResult = await fetchUrl(parsed.url);
@@ -69,10 +69,10 @@ while (true) {
 
     const secondResponse = await callModel(conversation);
     const finalMessage = extractMessageChoice(secondResponse);
-    console.log(finalMessage?.message?.content || '（无输出）');
+    console.log(finalMessage?.content || '（无输出）');
 
   } else {
-    console.log(choice?.message?.content || '（无输出）');
+    console.log(msg?.content || '（无输出）');
   }
 }
 
